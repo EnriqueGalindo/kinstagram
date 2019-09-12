@@ -11,3 +11,55 @@ servers:
       domain:
         default: localhost:3000
         description: Domain
+paths:
+  /api/images:
+  get:
+    tags:
+    - Images
+      summary: "Finds image by status"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  imageURIs:
+                    type: array
+                    items: 
+                      type: string
+                statusCode: 
+                  type: integer
+                items:
+                  $ref: "#/definitions/image"
+  post:
+    tags:
+      - Images
+      summary: "Add a new image to the site"
+      requestBody: 
+        content: 
+          schema: 
+            object:
+              properties:
+                picture: 
+                  type: string
+                  format: binary
+              required:
+                - picture
+        description: "upload image"
+        required: true
+      respomses:
+        200:
+          description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties: 
+                    imageURIs:
+                      type: array
+                      items: 
+                        type: string
+                  statusCode: 
+                    type: integer
